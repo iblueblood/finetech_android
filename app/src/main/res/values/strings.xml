@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">fintech_team_17</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="prompt_email">Enter Email</string>
+    <string name="prompt_password">Enter Password</string>
+    <string name="action_sign_in">Login</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="login_greeting">Welcome back</string>
+    <string name="forgot_password_textview"><u>Forgot Password?</u></string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="login_signup_textview">Sign Up</string>
+    <string name="sign_up_with_google">Sign Up with Google</string>
+    <string name="sign_up_with_facebook">Sign Up with Facebook</string>
 </resources>
