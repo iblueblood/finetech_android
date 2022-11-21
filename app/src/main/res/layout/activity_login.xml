@@ -29,6 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="49dp"
         android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_background"
         android:autofillHints="@string/prompt_email"
@@ -42,19 +43,22 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:id="@+id/layout_password"
         app:passwordToggleEnabled="true"
         android:background="@color/background_color"
         app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username">
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="49dp"
+            android:layout_height="wrap_content"
             android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:background="@drawable/edit_text_background"
             android:autofillHints="@string/prompt_password"
             android:hint="@string/prompt_password"

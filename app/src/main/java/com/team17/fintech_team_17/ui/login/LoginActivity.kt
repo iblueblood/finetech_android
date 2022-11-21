@@ -15,6 +15,8 @@ import android.widget.Toast
 import com.team17.fintech_team_17.databinding.ActivityLoginBinding
 
 import com.team17.fintech_team_17.R
+import com.team17.fintech_team_17.data.LoginDataSource
+import com.team17.fintech_team_17.data.LoginRepository
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())[LoginViewModel::class.java]
+        loginViewModel = LoginViewModel(LoginRepository(LoginDataSource()))
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
