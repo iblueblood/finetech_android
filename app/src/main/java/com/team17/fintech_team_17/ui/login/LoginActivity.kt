@@ -1,6 +1,7 @@
 package com.team17.fintech_team_17.ui.login
 
 import android.app.Activity
+import android.content.ContentValues
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,10 +9,14 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.team17.fintech_team_17.databinding.ActivityLoginBinding
 
 import com.team17.fintech_team_17.R
@@ -19,12 +24,17 @@ import com.team17.fintech_team_17.data.LoginDataSource
 import com.team17.fintech_team_17.data.LoginRepository
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+
+
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = Firebase.auth
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -33,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.password
         val login = binding.login
         val loading = binding.loading
+
 
         loginViewModel = LoginViewModel(LoginRepository(LoginDataSource()))
 
@@ -81,6 +92,8 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
 
+
+
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
@@ -97,7 +110,38 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
+
+        print("==============================")
+        print("$username, $password")
+        print("==============================")
+        auth.signInWithEmailAndPassword(username.toString(), password.toString())
+            .addOnCompleteListener(this) { task ->
+
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(ContentValues.TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    print(user?.uid);
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
     }
+
+//    public override fun onStart() {
+//        super.onStart()
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        val currentUser = auth.currentUser
+//        if(currentUser != null){
+//            //reload();
+//        }
+//    }
+
+
+
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
